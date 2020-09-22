@@ -4,7 +4,14 @@
       <img :src="champagne" alt="champagne!" />
     </a>
 
-    <nav class="navbar" :class="{ 'navbar--hidden': !this.showNavbar }">
+    <nav
+      class="navbar"
+      :class="{
+        'navbar--hidden': !this.showNavbar,
+        'is-scrolling': this.isScrolledDown,
+        'menu-clicked': this.isOpen
+      }"
+    >
       <section class="route-container">
         <a href="#" class="route-link">Home</a>
         <a href="#" class="route-link">Projects</a>
@@ -33,7 +40,6 @@
           <a href="#" class="route-link">Employees</a>
         </div>
       </section>
-
     </nav>
   </header>
 </template>
@@ -46,13 +52,13 @@ export default {
       champagne: require("../assets/champagne.svg"),
       showNavbar: true,
       lastScrollPos: 0,
-      isOpen: false
+      isOpen: false,
+      isScrolledDown: false
     };
   },
   mounted() {
     window.addEventListener("scroll", this.onScroll);
     const el = document.getElementById("my-icon");
-    console.log(el);
     el.addEventListener("mouseover", this.iconIsHovered);
   },
   methods: {
@@ -68,6 +74,7 @@ export default {
       }
 
       this.showNavbar = currentScrollPos < this.lastScrollPos;
+      this.isScrolledDown = currentScrollPos > 50;
       this.lastScrollPos = currentScrollPos;
     },
     iconIsHovered() {
@@ -76,12 +83,12 @@ export default {
     toggleMenu() {
       let open = this.isOpen ? false : true;
       this.isOpen = open;
-      if(open){
-        document.documentElement.style.overflow = 'hidden'
+      if (open) {
+        document.documentElement.style.overflow = "hidden";
       } else {
-        document.documentElement.style.overflow = "auto"
+        document.documentElement.style.overflow = "auto";
       }
-      this.$emit('menuClicked', open);
+      this.$emit("menuClicked", open);
     }
   }
 };
@@ -91,17 +98,20 @@ export default {
 @import "../styles/media-queries.scss";
 @import "../styles/keyframes.scss";
 
-nav {
+.navbar {
+  height: 5em;
+  width: 100vw;
   background-color: #aebab1;
   width: 100%;
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(6, 1fr);
-}
 
-.navbar {
-  height: 5em;
-  width: 100vw;
+  &.menu-clicked {
+    -webkit-box-shadow: inset 100vw 0px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: inset 100vw 0px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: inset 100vw 0px 5px 0px rgba(0, 0, 0, 0.75);
+  }
 }
 
 .route-link {
@@ -123,7 +133,7 @@ nav {
   z-index: 3;
   width: 42px;
   height: 42px;
-  background: white;
+  background: #fffaf4;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -181,7 +191,7 @@ nav {
 .mobile-navigation {
   position: fixed;
   background-color: #aebab1;
-  
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -220,33 +230,37 @@ nav {
 }
 
 @include mobile {
-  
   .route-container {
     display: none;
   }
 
-  .mobile-navigation{
+  .navbar {
+    background-color: #fffaf4;
+
+    &.is-scrolling {
+      background-color: white;
+      position: fixed;
+    }
+  }
+
+  .mobile-navigation {
     top: 0;
     width: 100%;
     height: 100vh;
     max-height: 100vh;
     transition: max-height 0.5s ease-out;
-
   }
 
   #my-icon {
-    position: absolute;
+    position: fixed;
     margin: 1em 0 0 2em;
     z-index: 2;
     height: 3em;
     width: 3em;
   }
-
-  
 }
 
 @include tablet {
-
   .route-container {
     display: none;
   }
@@ -265,7 +279,7 @@ nav {
     max-width: 50vw;
     height: 100%;
     transition: max-width 0.5s ease-out;
-    
+
     &.collapsed {
       max-width: 0%;
     }
