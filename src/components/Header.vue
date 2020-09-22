@@ -3,46 +3,50 @@
     <a href="#" id="my-icon">
       <img :src="champagne" alt="champagne!" />
     </a>
-    <div class="click-outside" :class="isOpen ? 'show' : 'collapsed'" @click="toggleMenu">
-    </div>
 
-      <nav
-        class="navbar"
-        :class="{
-          'navbar--hidden': !this.showNavbar,
-          'is-scrolling': this.isScrolledDown,
-          'menu-clicked': this.isOpen
-        }"
+    <div
+      class="click-outside"
+      :class="isOpen ? 'show' : 'collapsed'"
+      @click="toggleMenu"
+    ></div>
+
+    <nav
+      class="navbar"
+      :class="{
+        'navbar--hidden': !this.showNavbar,
+        'is-scrolling': this.isScrolledDown,
+        'menu-clicked': this.isOpen
+      }"
+    >
+      <section class="route-container">
+        <a href="#" class="route-link">Home</a>
+        <a href="#" class="route-link">Projects</a>
+        <a href="#" class="route-link">Customers</a>
+        <a href="#" class="route-link">About us</a>
+        <a href="#" class="route-link">Employees</a>
+      </section>
+
+      <a
+        class="menu-toggle-container"
+        aria-label="show-menu"
+        @click="toggleMenu"
+        :class="isOpen ? 'open' : 'collapsed'"
       >
-        <section class="route-container">
+        <span class="menu-toggle"></span>
+        <span class="menu-toggle"></span>
+        <span class="menu-toggle"></span>
+      </a>
+
+      <section class="mobile-navigation" :class="isOpen ? 'open' : 'collapsed'">
+        <div class="menu-item-link">
           <a href="#" class="route-link">Home</a>
           <a href="#" class="route-link">Projects</a>
           <a href="#" class="route-link">Customers</a>
           <a href="#" class="route-link">About us</a>
           <a href="#" class="route-link">Employees</a>
-        </section>
-
-        <a
-          class="menu-toggle-container"
-          aria-label="show-menu"
-          @click="toggleMenu"
-          :class="isOpen ? 'open' : 'collapsed'"
-        >
-          <span class="menu-toggle"></span>
-          <span class="menu-toggle"></span>
-          <span class="menu-toggle"></span>
-        </a>
-
-        <section class="mobile-navigation" :class="isOpen ? 'open' : 'collapsed'">
-          <div class="menu-item-link">
-            <a href="#" class="route-link">Home</a>
-            <a href="#" class="route-link">Projects</a>
-            <a href="#" class="route-link">Customers</a>
-            <a href="#" class="route-link">About us</a>
-            <a href="#" class="route-link">Employees</a>
-          </div>
-        </section>
-      </nav>
+        </div>
+      </section>
+    </nav>
   </header>
 </template>
 
@@ -91,9 +95,6 @@ export default {
         document.documentElement.style.overflow = "auto";
       }
       this.$emit("menuClicked", open);
-    },
-    clickOutside(){
-      console.log("whaat")
     }
   }
 };
@@ -103,8 +104,16 @@ export default {
 @import "../styles/media-queries.scss";
 @import "../styles/keyframes.scss";
 
-.click-outside{
-  &.show{
+#my-icon {
+  position: fixed;
+  height: 3em;
+  width: 3em;
+  z-index: 3;
+  margin: 1em 0 0 1em;
+}
+
+.click-outside {
+  &.show {
     position: fixed;
     z-index: 2;
     width: 100vw;
@@ -265,14 +274,6 @@ export default {
     max-height: 100vh;
     transition: max-height 0.5s ease-out;
   }
-
-  #my-icon {
-    position: fixed;
-    margin: 1em 0 0 2em;
-    z-index: 3;
-    height: 3em;
-    width: 3em;
-  }
 }
 
 @include tablet {
@@ -289,14 +290,6 @@ export default {
     }
   }
 
-  #my-icon {
-    position: fixed;
-    margin: 0.5rem 0 0 2rem;
-    z-index: 3;
-    height: 3em;
-    width: 3em;
-  }
-
   .mobile-navigation {
     right: 0;
     width: 50vw;
@@ -311,6 +304,14 @@ export default {
 }
 
 @include desktop {
+  .menu-toggle-container {
+    display: none;
+  }
+
+  .mobile-navigation {
+    display: none;
+  }
+
   nav {
     display: grid;
     grid-template-columns: 10em 1fr;
@@ -327,7 +328,7 @@ export default {
   }
 
   .navbar {
-    height: 4em;
+    height: 5em;
     width: 100vw;
     position: fixed;
     box-shadow: 0 2px 15px rgba(71, 120, 120, 0.5);
@@ -339,14 +340,10 @@ export default {
       box-shadow: none;
       transform: translate3d(0, -100%, 0);
     }
-  }
 
-  #my-icon {
-    position: fixed;
-    margin: 0.5rem 0 0 2rem;
-    z-index: 3;
-    height: 4em;
-    width: 4em;
+    &:not(.is-scrolling) {
+      box-shadow: none;
+    }
   }
 }
 </style>
