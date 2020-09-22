@@ -39,11 +39,11 @@
 
       <section class="mobile-navigation" :class="isOpen ? 'open' : 'collapsed'">
         <div class="menu-item-link">
-          <a href="#" class="route-link">Home</a>
-          <a href="#" class="route-link">Projects</a>
-          <a href="#" class="route-link">Customers</a>
-          <a href="#" class="route-link">About us</a>
-          <a href="#" class="route-link">Employees</a>
+          <a href="#" class="route-link" @click="toggleMenu"> Home</a>
+          <a href="#" class="route-link" @click="toggleMenu"> Projects</a>
+          <a href="#" class="route-link" @click="toggleMenu"> Customers</a>
+          <a href="#" class="route-link" @click="toggleMenu"> About us</a>
+          <a href="#" class="route-link" @click="toggleMenu"> Employees</a>
         </div>
       </section>
     </nav>
@@ -122,12 +122,20 @@ export default {
     -moz-box-shadow: inset 100vw 0px 5px 0px rgba(0, 0, 0, 0.75);
     box-shadow: inset 100vw 0px 5px 0px rgba(0, 0, 0, 0.75);
   }
+
+  &.collapsed {
+    width: 0;
+    height: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
 }
 
 .navbar {
   height: 5em;
   width: 100vw;
-  background-color: #aebab1;
+  background-color: #fffaf4;
   width: 100%;
   display: grid;
   grid-template-rows: 1fr;
@@ -139,6 +147,15 @@ export default {
     -webkit-box-shadow: inset 100vw 0px 5px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: inset 100vw 0px 5px 0px rgba(0, 0, 0, 0.75);
     box-shadow: inset 100vw 0px 5px 0px rgba(0, 0, 0, 0.75);
+  }
+
+  &.is-scrolling {
+    background-color: #aebab1;
+    position: fixed;
+    -webkit-animation: fadeInFromNone .5s ease-in;
+    -moz-animation: fadeInFromNone .5s ease-in;
+    -o-animation: fadeInFromNone .5s ease-in;
+    animation: fadeInFromNone .5s ease-in;
   }
 }
 
@@ -258,15 +275,6 @@ export default {
     display: none;
   }
 
-  .navbar {
-    background-color: #fffaf4;
-
-    &.is-scrolling {
-      background-color: #aebab1;
-      position: fixed;
-    }
-  }
-
   .mobile-navigation {
     top: 0;
     width: 100%;
@@ -279,15 +287,6 @@ export default {
 @include tablet {
   .route-container {
     display: none;
-  }
-
-  .navbar {
-    background-color: #fffaf4;
-
-    &.is-scrolling {
-      background-color: #aebab1;
-      position: fixed;
-    }
   }
 
   .mobile-navigation {
@@ -332,9 +331,6 @@ export default {
     width: 100vw;
     position: fixed;
     box-shadow: 0 2px 15px rgba(71, 120, 120, 0.5);
-    transform: translate3d(0, 0, 0);
-    transition: height 0.5s linear, top 0.5s ease-in-out 0s;
-    transform-origin: 50% 0;
 
     &.navbar--hidden {
       box-shadow: none;
