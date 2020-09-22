@@ -3,44 +3,46 @@
     <a href="#" id="my-icon">
       <img :src="champagne" alt="champagne!" />
     </a>
+    <div class="click-outside" :class="isOpen ? 'show' : 'collapsed'" @click="toggleMenu">
+    </div>
 
-    <nav
-      class="navbar"
-      :class="{
-        'navbar--hidden': !this.showNavbar,
-        'is-scrolling': this.isScrolledDown,
-        'menu-clicked': this.isOpen
-      }"
-    >
-      <section class="route-container">
-        <a href="#" class="route-link">Home</a>
-        <a href="#" class="route-link">Projects</a>
-        <a href="#" class="route-link">Customers</a>
-        <a href="#" class="route-link">About us</a>
-        <a href="#" class="route-link">Employees</a>
-      </section>
-
-      <a
-        class="menu-toggle-container"
-        aria-label="show-menu"
-        @click="toggleMenu"
-        :class="isOpen ? 'open' : 'collapsed'"
+      <nav
+        class="navbar"
+        :class="{
+          'navbar--hidden': !this.showNavbar,
+          'is-scrolling': this.isScrolledDown,
+          'menu-clicked': this.isOpen
+        }"
       >
-        <span class="menu-toggle"></span>
-        <span class="menu-toggle"></span>
-        <span class="menu-toggle"></span>
-      </a>
-
-      <section class="mobile-navigation" :class="isOpen ? 'open' : 'collapsed'">
-        <div class="menu-item-link">
+        <section class="route-container">
           <a href="#" class="route-link">Home</a>
           <a href="#" class="route-link">Projects</a>
           <a href="#" class="route-link">Customers</a>
           <a href="#" class="route-link">About us</a>
           <a href="#" class="route-link">Employees</a>
-        </div>
-      </section>
-    </nav>
+        </section>
+
+        <a
+          class="menu-toggle-container"
+          aria-label="show-menu"
+          @click="toggleMenu"
+          :class="isOpen ? 'open' : 'collapsed'"
+        >
+          <span class="menu-toggle"></span>
+          <span class="menu-toggle"></span>
+          <span class="menu-toggle"></span>
+        </a>
+
+        <section class="mobile-navigation" :class="isOpen ? 'open' : 'collapsed'">
+          <div class="menu-item-link">
+            <a href="#" class="route-link">Home</a>
+            <a href="#" class="route-link">Projects</a>
+            <a href="#" class="route-link">Customers</a>
+            <a href="#" class="route-link">About us</a>
+            <a href="#" class="route-link">Employees</a>
+          </div>
+        </section>
+      </nav>
   </header>
 </template>
 
@@ -89,6 +91,9 @@ export default {
         document.documentElement.style.overflow = "auto";
       }
       this.$emit("menuClicked", open);
+    },
+    clickOutside(){
+      console.log("whaat")
     }
   }
 };
@@ -98,6 +103,18 @@ export default {
 @import "../styles/media-queries.scss";
 @import "../styles/keyframes.scss";
 
+.click-outside{
+  &.show{
+    position: fixed;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    -webkit-box-shadow: inset 100vw 0px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: inset 100vw 0px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: inset 100vw 0px 5px 0px rgba(0, 0, 0, 0.75);
+  }
+}
+
 .navbar {
   height: 5em;
   width: 100vw;
@@ -106,6 +123,8 @@ export default {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(6, 1fr);
+  position: relative;
+  z-index: 2;
 
   &.menu-clicked {
     -webkit-box-shadow: inset 100vw 0px 5px 0px rgba(0, 0, 0, 0.75);
@@ -150,7 +169,7 @@ export default {
     height: 3px;
     width: 18px;
     background: #111;
-    z-index: 1;
+    z-index: 3;
     transform-origin: 4px 0px;
     transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
       background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
@@ -167,6 +186,7 @@ export default {
   }
 
   &.open {
+    background: #fff;
     span {
       opacity: 1;
       transform: rotate(-45deg) translate(2px, -2px);
@@ -182,16 +202,11 @@ export default {
       transform: rotate(45deg) translate(3.5px, -2px);
     }
   }
-
-  &.open {
-    background: #fff;
-  }
 }
 
 .mobile-navigation {
   position: fixed;
   background-color: #aebab1;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -238,7 +253,7 @@ export default {
     background-color: #fffaf4;
 
     &.is-scrolling {
-      background-color: white;
+      background-color: #aebab1;
       position: fixed;
     }
   }
@@ -254,7 +269,7 @@ export default {
   #my-icon {
     position: fixed;
     margin: 1em 0 0 2em;
-    z-index: 2;
+    z-index: 3;
     height: 3em;
     width: 3em;
   }
@@ -265,10 +280,19 @@ export default {
     display: none;
   }
 
+  .navbar {
+    background-color: #fffaf4;
+
+    &.is-scrolling {
+      background-color: #aebab1;
+      position: fixed;
+    }
+  }
+
   #my-icon {
     position: fixed;
     margin: 0.5rem 0 0 2rem;
-    z-index: 2;
+    z-index: 3;
     height: 3em;
     width: 3em;
   }
@@ -320,7 +344,7 @@ export default {
   #my-icon {
     position: fixed;
     margin: 0.5rem 0 0 2rem;
-    z-index: 2;
+    z-index: 3;
     height: 4em;
     width: 4em;
   }

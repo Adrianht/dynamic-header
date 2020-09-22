@@ -1,6 +1,6 @@
 <template>
-  <div id="app" :class="isOpen ? 'tablet-nav-open' : ''">
-    <Header @menuClicked="toggleShadow" />
+  <div id="app">
+    <Header />
     <Main />
     <Footer />
   </div>
@@ -17,16 +17,6 @@ export default {
     Header,
     Main,
     Footer
-  },
-  data() {
-    return {
-      isOpen: false
-    };
-  },
-  methods: {
-    toggleShadow(isOpen) {
-      this.isOpen = isOpen;
-    }
   }
 };
 </script>
@@ -47,13 +37,6 @@ body {
   grid-template-columns: repeat(12, 1fr);
   height: 100vh;
   width: 100vw;
-
-  &.tablet-nav-open {
-    -webkit-box-shadow: inset 100vw 0px 5px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: inset 100vw 0px 5px 0px rgba(0, 0, 0, 0.75);
-    box-shadow: inset 100vw 0px 5px 0px rgba(0, 0, 0, 0.75);
-    height: 100%;
-  }
 }
 
 header {
