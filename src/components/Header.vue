@@ -6,7 +6,8 @@
       aria-hidden="true"
       :style="champagne"
       :class="{ 'is-not-scrolled': !this.isScrolledDown }"
-    >Link to home</a>
+      >Link to home
+    </a>
 
     <div
       class="click-outside"
@@ -341,6 +342,10 @@ export default {
   }
 
   .mobile-navigation {
+    display: none;
+  }
+
+  .click-outside {
     display: none;
   }
 
