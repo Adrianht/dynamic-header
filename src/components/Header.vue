@@ -1,6 +1,12 @@
 <template>
   <header>
-    <a href="#" id="my-icon" aria-hidden="true" :style="champagne" :class="{'is-not-scrolled': !this.isScrolledDown}"></a>
+    <a
+      href="#"
+      id="my-icon"
+      aria-hidden="true"
+      :style="champagne"
+      :class="{ 'is-not-scrolled': !this.isScrolledDown }"
+    ></a>
 
     <div
       class="click-outside"
@@ -136,7 +142,7 @@ export default {
     -moz-animation: rotateAndResize 0.5s ease-in;
     -o-animation: rotateAndResize 0.5s ease-in;
     animation: rotateAndResize 0.5s ease-in;
-    animation-fill-mode: forwards; 
+    animation-fill-mode: forwards;
   }
 }
 
