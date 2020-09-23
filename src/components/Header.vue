@@ -1,7 +1,7 @@
 <template>
   <header>
-    <a href="#" id="my-icon">
-      <img :src="champagne" alt="champagne!" />
+    <a href="#" id="my-icon" aria-label="company-logo, link to home" :style="champagne">
+      <!-- <img :src="champagne" alt="champagne!" /> -->
     </a>
 
     <div
@@ -18,17 +18,27 @@
         'menu-clicked': this.isOpen
       }"
     >
-      <section class="route-container">
-        <a href="#" class="route-link">Home</a>
-        <a href="#" class="route-link">Projects</a>
-        <a href="#" class="route-link">Customers</a>
-        <a href="#" class="route-link">About us</a>
-        <a href="#" class="route-link">Employees</a>
-      </section>
+      <ul class="route-container">
+        <li>
+          <a href="#" class="route-link">Home</a>
+        </li>
+        <li>
+          <a href="#" class="route-link">Projects</a>
+        </li>
+        <li>
+          <a href="#" class="route-link">Customers</a>
+        </li>
+        <li>
+          <a href="#" class="route-link">About us</a>
+        </li>
+        <li>
+          <a href="#" class="route-link">Employees</a>
+        </li>
+      </ul>
 
       <a
         class="menu-toggle-container"
-        aria-label="show-menu"
+        aria-hidden="true"
         @click="toggleMenu"
         :class="isOpen ? 'open' : 'collapsed'"
       >
@@ -38,13 +48,23 @@
       </a>
 
       <section class="mobile-navigation" :class="isOpen ? 'open' : 'collapsed'">
-        <div class="menu-item-link">
-          <a href="#" class="route-link" @click="toggleMenu"> Home</a>
-          <a href="#" class="route-link" @click="toggleMenu"> Projects</a>
-          <a href="#" class="route-link" @click="toggleMenu"> Customers</a>
-          <a href="#" class="route-link" @click="toggleMenu"> About us</a>
-          <a href="#" class="route-link" @click="toggleMenu"> Employees</a>
-        </div>
+        <ul class="menu-item-link">
+          <li>
+            <a href="#" class="route-link" @click="toggleMenu"> Home</a>
+          </li>
+          <li>
+            <a href="#" class="route-link" @click="toggleMenu"> Projects</a>
+          </li>
+          <li>
+            <a href="#" class="route-link" @click="toggleMenu"> Customers</a>
+          </li>
+          <li>
+            <a href="#" class="route-link" @click="toggleMenu"> About us</a>
+          </li>
+          <li>
+            <a href="#" class="route-link" @click="toggleMenu"> Employees</a>
+          </li>
+        </ul>
       </section>
     </nav>
   </header>
@@ -55,7 +75,9 @@ export default {
   name: "Header",
   data() {
     return {
-      champagne: require("../assets/champagne.svg"),
+      champagne: {
+        backgroundImage: `url(${require("../assets/champagne.svg")})`
+      },
       showNavbar: true,
       lastScrollPos: 0,
       isOpen: false,
@@ -110,6 +132,7 @@ export default {
   width: 3em;
   z-index: 3;
   margin: 1em 0 0 1em;
+  background-image: url()
 }
 
 .click-outside {
@@ -124,11 +147,7 @@ export default {
   }
 
   &.collapsed {
-    width: 0;
-    height: 0;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+    display: none;
   }
 }
 
@@ -152,10 +171,10 @@ export default {
   &.is-scrolling {
     background-color: #aebab1;
     position: fixed;
-    -webkit-animation: fadeInFromNone .5s ease-in;
-    -moz-animation: fadeInFromNone .5s ease-in;
-    -o-animation: fadeInFromNone .5s ease-in;
-    animation: fadeInFromNone .5s ease-in;
+    -webkit-animation: fadeInFromNone 0.5s ease-in;
+    -moz-animation: fadeInFromNone 0.5s ease-in;
+    -o-animation: fadeInFromNone 0.5s ease-in;
+    animation: fadeInFromNone 0.5s ease-in;
   }
 }
 

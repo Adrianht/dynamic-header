@@ -1,8 +1,6 @@
 <template>
   <footer>
-    <h1>
-      halla
-    </h1>
+    <p>This is the footer</p>
   </footer>
 </template>
 
@@ -15,5 +13,6 @@ export default {
 <style lang="scss" scoped>
 footer {
   background-color: #aebab1;
+  text-align: center;
 }
 </style>
