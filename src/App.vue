@@ -23,6 +23,7 @@ export default {
 
 <style lang="scss">
 @import "./styles/reset";
+@import "./styles/media-queries";
 
 body {
   background-color: #fffaf4;
@@ -48,6 +49,9 @@ main {
   grid-row: 2;
   grid-column: 2 / -2;
   padding: 1em;
+  @include desktop {
+    grid-column: 4 / -4;
+  }
 }
 
 footer {
