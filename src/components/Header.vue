@@ -1,8 +1,6 @@
 <template>
   <header>
-    <a href="#" id="my-icon" aria-label="company-logo, link to home" :style="champagne">
-      <!-- <img :src="champagne" alt="champagne!" /> -->
-    </a>
+    <a href="#" id="my-icon" aria-hidden="true" :style="champagne" :class="{'is-not-scrolled': !this.isScrolledDown}"></a>
 
     <div
       class="click-outside"
@@ -132,7 +130,14 @@ export default {
   width: 3em;
   z-index: 3;
   margin: 1em 0 0 1em;
-  background-image: url()
+
+  &.is-not-scrolled {
+    -webkit-animation: rotateAndResize 0.5s ease-in;
+    -moz-animation: rotateAndResize 0.5s ease-in;
+    -o-animation: rotateAndResize 0.5s ease-in;
+    animation: rotateAndResize 0.5s ease-in;
+    animation-fill-mode: forwards; 
+  }
 }
 
 .click-outside {
