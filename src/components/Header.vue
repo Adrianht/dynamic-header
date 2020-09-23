@@ -6,7 +6,7 @@
       aria-hidden="true"
       :style="champagne"
       :class="{ 'is-not-scrolled': !this.isScrolledDown }"
-    ></a>
+    >Link to home</a>
 
     <div
       class="click-outside"
@@ -136,6 +136,9 @@ export default {
   width: 3em;
   z-index: 3;
   margin: 1em 0 0 1em;
+
+  text-indent: -9999px;
+  outline: none;
 
   &.is-not-scrolled {
     -webkit-animation: rotateAndResize 0.5s ease-in;
